@@ -44,6 +44,8 @@ defmodule LiveViewDemo.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:credo, "~> 1.1.4", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 0.9", only: :dev, runtime: false},
       {:calendar, "~> 0.17.6"}
     ]
   end
