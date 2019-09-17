@@ -4,6 +4,11 @@ defmodule LiveViewDemo.Midi do
   """
 
   alias LiveViewDemo.Midi.Note
+  alias LiveViewDemo.Midi.State
+
+  def user_gesture(%State{user_gesture: false} = state) do
+    %{state | user_gesture: true}
+  end
 
   @doc """
   Add note to events and notes.

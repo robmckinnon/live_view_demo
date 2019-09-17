@@ -20,3 +20,13 @@ import LiveSocket from "phoenix_live_view"
 
 let liveSocket = new LiveSocket("/live")
 liveSocket.connect()
+
+const CONNECT_MIDI = ".connect-midi"
+
+document.addEventListener("phx:update", () => {
+   document.querySelectorAll(CONNECT_MIDI).forEach(el => {
+     el.addEventListener("click", () => {
+       console.log("hi")
+     })
+   })
+})
