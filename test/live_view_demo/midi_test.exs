@@ -4,6 +4,15 @@ defmodule LiveViewDemo.MidiTest do
 
   alias LiveViewDemo.Midi
 
+  describe "state" do
+    alias LiveViewDemo.Midi.State
+
+    test "initialised with channels map" do
+      state = struct(State)
+      assert state.channels == %{}
+    end
+  end
+
   describe "notes" do
     alias LiveViewDemo.Midi.Note
 
