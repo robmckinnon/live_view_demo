@@ -5,13 +5,33 @@
     </button>
   </div>
 <% else %>
-  <%= if @state.inputs == [] do %>
+  <%= if @state.inputs == %{} do %>
     <div>
       No MIDI device inputs detected.
     </div>
   <% else %>
     <div>
-      MIDI inputs
+      <h2>MIDI inputs</h2>
+      <%= for input <- @state.inputs |> Map.values() do %>
+        <div>
+          <%= input.manufacturer <> " " %>
+          <%= input.name %>
+          (<%= input.id %>):
+          <%= input.state %>
+        </div>
+      <% end %>
+    </div>
+    <hr/>
+    <div>
+      <h2>MIDI outputs</h2>
+      <%= for output <- @state.outputs |> Map.values() do %>
+        <div>
+          <%= output.manufacturer <> " " %>
+          <%= output.name %>
+          (<%= output.id %>):
+          <%= output.state %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% end %>

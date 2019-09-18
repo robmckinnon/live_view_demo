@@ -16,4 +16,14 @@ defmodule LiveViewDemoWeb.MidiLive do
     new_state = Midi.user_gesture(assigns.state)
     {:noreply, assign(socket, state: new_state)}
   end
+
+  def handle_event("midi_input", input, %{assigns: assigns} = socket) do
+    new_state = Midi.midi_input(input, assigns.state)
+    {:noreply, assign(socket, state: new_state)}
+  end
+
+  def handle_event("midi_output", output, %{assigns: assigns} = socket) do
+    new_state = Midi.midi_output(output, assigns.state)
+    {:noreply, assign(socket, state: new_state)}
+  end
 end

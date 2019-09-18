@@ -3,11 +3,42 @@ defmodule LiveViewDemo.Midi do
   The MIDI context.
   """
 
-  alias LiveViewDemo.Midi.Note
-  alias LiveViewDemo.Midi.State
+  alias LiveViewDemo.Midi.{Note, Port, State}
 
   def user_gesture(%State{user_gesture: false} = state) do
     %{state | user_gesture: true}
+  end
+
+  def midi_port(%{
+        "id" => id,
+        "manufacturer" => manufacturer,
+        "name" => name,
+        "type" => type,
+        "version" => version,
+        "state" => state,
+        "connection" => connection
+      }) do
+    %Port{
+      id: id,
+      manufacturer: manufacturer,
+      name: name,
+      type: type,
+      version: version,
+      state: state,
+      connection: connection
+    }
+  end
+
+  def midi_input(%{"id" => id} = input, %State{} = state) when is_map(input) do
+    port = midi_port(input)
+    inputs = state.inputs |> Map.put(id, port)
+    %{state | inputs: inputs}
+  end
+
+  def midi_output(%{"id" => id} = output, %State{} = state) when is_map(output) do
+    port = midi_port(output)
+    outputs = state.outputs |> Map.put(id, port)
+    %{state | outputs: outputs}
   end
 
   @doc """

@@ -5,14 +5,38 @@ defmodule LiveViewDemo.MidiTest do
   alias LiveViewDemo.Midi
 
   describe "state" do
-    alias LiveViewDemo.Midi.State
+    alias LiveViewDemo.Midi.{Port, State}
 
     test "initialised with channels map, user_gesture false, inputs/outputs empty" do
       state = struct(State)
       assert state.channels == %{}
       assert state.user_gesture == false
-      assert state.inputs == []
-      assert state.outputs == []
+      assert state.inputs == %{}
+      assert state.outputs == %{}
+    end
+
+    @port %{
+      "id" => "id",
+      "manufacturer" => "manufacturer",
+      "name" => "name",
+      "type" => "type",
+      "version" => "version",
+      "state" => "state",
+      "connection" => "connection"
+    }
+
+    test "adds midi_input" do
+      state = struct(State)
+      input = @port
+      state = Midi.midi_input(input, state)
+      assert %Port{} = state.inputs |> Map.get("id")
+    end
+
+    test "adds midi_output" do
+      state = struct(State)
+      output = @port
+      state = Midi.midi_output(output, state)
+      assert %Port{} = state.outputs |> Map.get("id")
     end
   end
 

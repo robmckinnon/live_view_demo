@@ -21,13 +21,14 @@ Hooks.ConnectMidi = {
   mounted() {
     if (!navigator.requestMIDIAccess) {
       this.el.disabled = true
-      alert("This browser does not support Web MIDI. Try site in Chrome browser.")
+      alert("This browser does not support Web MIDI. Try site in Firefox or Chrome browser.")
       return
     } else {
+      const _this = this
       const handler = () => {
         const requestAccess = requestMidiAccess
         console.log('Request access...')
-        requestAccess(navigator)
+        requestAccess(navigator, _this)
       }
       this.el.addEventListener("click", handler)
     }

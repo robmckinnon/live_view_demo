@@ -3,5 +3,5 @@ defmodule LiveViewDemo.Midi.State do
   Represents a MIDI message state.
   """
   @enforce_keys [:channels, :inputs, :outputs, :user_gesture]
-  defstruct channels: %{}, inputs: [], outputs: [], user_gesture: false
+  defstruct channels: %{}, inputs: %{}, outputs: %{}, user_gesture: false
 end
