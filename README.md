@@ -6,8 +6,6 @@ This is my entry in [Phoenix Phrenzy](https://phoenixphrenzy.com), showing off w
 
 # Phrenzy Instructions
 
-Fork this repo and start build an application! See [Phoenix Phrenzy](https://phoenixphrenzy.com) for details.
-
 Note: for development, you'll need Elixir, Erlang and Node.js. If you use the [asdf version manager](https://github.com/asdf-vm/asdf) and install the [relevant plugins](https://asdf-vm.com/#/plugins-all?id=plugin-list), you can install the versions specified in `.tool-versions` with `asdf install`.
 
 
