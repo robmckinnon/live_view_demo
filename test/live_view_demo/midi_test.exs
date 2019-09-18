@@ -7,10 +7,12 @@ defmodule LiveViewDemo.MidiTest do
   describe "state" do
     alias LiveViewDemo.Midi.State
 
-    test "initialised with channels map and user_gesture false" do
+    test "initialised with channels map, user_gesture false, inputs/outputs empty" do
       state = struct(State)
       assert state.channels == %{}
       assert state.user_gesture == false
+      assert state.inputs == []
+      assert state.outputs == []
     end
   end
 

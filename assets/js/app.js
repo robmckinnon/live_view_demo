@@ -11,22 +11,28 @@ import css from "../css/app.css"
 //
 import "phoenix_html"
 
-// Import local files
-//
-// Local files can be imported directly using relative paths, for example:
-// import socket from "./socket"
-
+import {Socket} from "phoenix"
 import LiveSocket from "phoenix_live_view"
+import requestMidiAccess from "./midi"
+const navigator = window.navigator
 
-let liveSocket = new LiveSocket("/live")
+const Hooks = {}
+Hooks.ConnectMidi = {
+  mounted() {
+    if (!navigator.requestMIDIAccess) {
+      this.el.disabled = true
+      alert("This browser does not support Web MIDI. Try site in Chrome browser.")
+      return
+    } else {
+      const handler = () => {
+        const requestAccess = requestMidiAccess
+        console.log('Request access...')
+        requestAccess(navigator)
+      }
+      this.el.addEventListener("click", handler)
+    }
+  }
+}
+
+let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks})
 liveSocket.connect()
-
-const CONNECT_MIDI = ".connect-midi"
-
-document.addEventListener("phx:update", () => {
-   document.querySelectorAll(CONNECT_MIDI).forEach(el => {
-     el.addEventListener("click", () => {
-       console.log("hi")
-     })
-   })
-})

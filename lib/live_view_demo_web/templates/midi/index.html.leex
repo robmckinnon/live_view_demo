@@ -1,7 +1,17 @@
 <%= if @state.user_gesture == false do %>
   <div id="user-gesture">
-    <button class="connect-midi" phx-click="user_gesture" phx-value="true">
+    <button phx-hook="ConnectMidi" phx-click="user_gesture" phx-value="true">
       Connect MIDI devices
     </button>
   </div>
+<% else %>
+  <%= if @state.inputs == [] do %>
+    <div>
+      No MIDI device inputs detected.
+    </div>
+  <% else %>
+    <div>
+      MIDI inputs
+    </div>
+  <% end %>
 <% end %>
