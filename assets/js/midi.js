@@ -20,28 +20,25 @@ const addPort = (port, collection, ctx, event) => {
   ctx.pushEvent(event, midiPortState(port))
 }
 
+const setPort = (port, ctx) => {
+  if (port.type === 'input') {
+    addPort(port, inputs, ctx, "midi_input")
+  } else if (port.type === 'output') {
+    addPort(port, outputs, ctx, "midi_output")
+  } else {
+    console.log(port.name)
+  }
+}
+
 const requestMidiAccess = async (navigator, ctx) => {
   const midiAccess = await navigator.requestMIDIAccess()
   console.log(JSON.stringify(midiAccess))
 
-  midiAccess.inputs.forEach((midiInput) => {
-    addPort(midiInput, inputs, ctx, "midi_input")
-  })
-
-  midiAccess.outputs.forEach((midiOutput) => {
-    addPort(midiOutput, outputs, ctx, "midi_output")
-  })
-
+  midiAccess.inputs.forEach(midiInput => setPort(midiInput, ctx))
+  midiAccess.outputs.forEach(midiOutput => setPort(midiOutput, ctx))
   midiAccess.onstatechange = (event) => {
-    const { port } = event;
-    if (port.type === 'input') {
-      addPort(port, inputs, ctx, "midi_input")
-    } else if (port.type === 'output') {
-      addPort(port, outputs, ctx, "midi_output")
-    } else {
-      console.log(port.name);
-      alert(event);
-    }
+    const { port } = event
+    setPort(port, ctx)
   }
 }
 
