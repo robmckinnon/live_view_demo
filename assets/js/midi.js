@@ -15,23 +15,34 @@ const midiPortState = (midiPort) => {
   }
 }
 
-const requestMidiAccess = (navigator, ctx) => {
-  navigator.requestMIDIAccess().then((midiAccess) => {
-    console.log('hi')
-    console.log(JSON.stringify(midiAccess))
-    // const gain = function (vel) { return vel / 127; };
-    midiAccess.inputs.forEach((midiInput) => {
-      inputs[midiInput.id] = midiInput
-      // this.listenToInput(midiInput);
-      ctx.pushEvent("midi_input", midiPortState(midiInput))
-    })
-    midiAccess.outputs.forEach((midiOutput) => {
-      // this.pushEvent(x, y)
-      outputs[midiOutput.id] = midiOutput
-      // this.registerOutput(midiOutput);
-      ctx.pushEvent("midi_output", midiPortState(midiOutput))
-    })
+const addPort = (port, collection, ctx, event) => {
+  collection[port.id] = port
+  ctx.pushEvent(event, midiPortState(port))
+}
+
+const requestMidiAccess = async (navigator, ctx) => {
+  const midiAccess = await navigator.requestMIDIAccess()
+  console.log(JSON.stringify(midiAccess))
+
+  midiAccess.inputs.forEach((midiInput) => {
+    addPort(midiInput, inputs, ctx, "midi_input")
   })
+
+  midiAccess.outputs.forEach((midiOutput) => {
+    addPort(midiOutput, outputs, ctx, "midi_output")
+  })
+
+  midiAccess.onstatechange = (event) => {
+    const { port } = event;
+    if (port.type === 'input') {
+      addPort(port, inputs, ctx, "midi_input")
+    } else if (port.type === 'output') {
+      addPort(port, outputs, ctx, "midi_output")
+    } else {
+      console.log(port.name);
+      alert(event);
+    }
+  }
 }
 
 export default requestMidiAccess
