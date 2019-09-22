@@ -38,6 +38,55 @@ defmodule LiveViewDemo.MidiTest do
       state = Midi.midi_output(output, state)
       assert %Port{} = state.outputs |> Map.get("id")
     end
+
+    test "handle_message adds new note on" do
+      state = struct(State)
+      channel = 11
+      port_id = "1649372164"
+      time = 1_052_287.6999999862
+      state = Midi.handle_message(144, 59, 127, channel, port_id, time, state)
+
+      assert state.channels |> Map.get(channel) ==
+               %{
+                 events: [{time, %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}],
+                 notes_on: %{59 => %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}
+               }
+    end
+
+    test "handle_message adds note off" do
+      state = struct(State)
+      channel = 11
+      port_id = "1649372164"
+      time = 1_052_287.6999999862
+      state = Midi.handle_message(144, 59, 127, channel, port_id, time, state)
+      time2 = 1_062_917.9749999894
+      state = Midi.handle_message(128, 59, 0, channel, port_id, time2, state)
+
+      assert state.channels |> Map.get(channel) ==
+               %{
+                 events: [
+                   {time2, %LiveViewDemo.Midi.Note{number: 59, velocity: 0}},
+                   {time, %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}
+                 ],
+                 notes_on: %{}
+               }
+    end
+
+    test "handle_message adds control change" do
+      state = struct(State)
+      channel = 11
+      port_id = "1649372164"
+      time = 1_052_287.6999999862
+      state = Midi.handle_message(176, 59, 127, channel, port_id, time, state)
+
+      assert state.channels |> Map.get(channel) ==
+               %{
+                 events: [
+                   {time, {59, 127}}
+                 ],
+                 notes_on: %{}
+               }
+    end
   end
 
   describe "notes" do

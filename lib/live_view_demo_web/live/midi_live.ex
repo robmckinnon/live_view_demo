@@ -1,5 +1,6 @@
 defmodule LiveViewDemoWeb.MidiLive do
   use Phoenix.LiveView
+  use Bitwise, only_operators: true
 
   alias LiveViewDemo.Midi
   alias LiveViewDemo.Midi.State
@@ -24,6 +25,25 @@ defmodule LiveViewDemoWeb.MidiLive do
 
   def handle_event("midi_output", output, %{assigns: assigns} = socket) do
     new_state = Midi.midi_output(output, assigns.state)
+    {:noreply, assign(socket, state: new_state)}
+  end
+
+  def handle_event(
+        "m",
+        %{
+          "d" => %{"0" => status, "1" => key, "2" => value},
+          "i" => port_id,
+          "t" => time
+        } = event,
+        %{assigns: assigns} = socket
+      ) do
+    IO.inspect(event)
+    message_code = status &&& 0xF0
+    channel = (status &&& 0x0F) + 1
+
+    new_state =
+      Midi.handle_message(message_code, key, value, channel, port_id, time, assigns.state)
+
     {:noreply, assign(socket, state: new_state)}
   end
 end
