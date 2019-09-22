@@ -1,37 +1,5 @@
 <%= if @state.user_gesture == false do %>
-  <div id="user-gesture">
-    <button phx-hook="ConnectMidi" phx-click="user_gesture" phx-value="true">
-      Connect MIDI devices
-    </button>
-  </div>
+  <%= render("connect_button.html") %>
 <% else %>
-  <%= if @state.inputs == %{} do %>
-    <div>
-      No MIDI device inputs detected.
-    </div>
-  <% else %>
-    <div>
-      <h2>MIDI inputs</h2>
-      <%= for input <- @state.inputs |> Map.values() do %>
-        <div>
-          <%= input.manufacturer <> " " %>
-          <%= input.name %>
-          (<%= input.id %>):
-          <%= input.state %>
-        </div>
-      <% end %>
-    </div>
-    <hr/>
-    <div>
-      <h2>MIDI outputs</h2>
-      <%= for output <- @state.outputs |> Map.values() do %>
-        <div>
-          <%= output.manufacturer <> " " %>
-          <%= output.name %>
-          (<%= output.id %>):
-          <%= output.state %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+  <%= render("ports.html", state: @state) %>
 <% end %>
