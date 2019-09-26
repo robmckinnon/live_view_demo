@@ -1,16 +1,15 @@
 <%= if @state.inputs == %{} do %>
-  <div>
+  <div class="row">
     Connect a USB MIDI device to continue.
   </div>
 <% else %>
-  <div>
+  <div class="row">
     <h2>MIDI inputs</h2>
     <%= for input <- @state.inputs |> Map.values() do %>
       <%= render("port.html", port: input) %>
     <% end %>
   </div>
-  <hr/>
-  <div>
+  <div class="row">
     <h2>MIDI outputs</h2>
     <%= for output <- @state.outputs |> Map.values() do %>
       <%= render("port.html", port: output) %>

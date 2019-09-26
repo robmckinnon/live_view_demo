@@ -1,0 +1,161 @@
+<% row_count = 128 %>
+<% _note_names = ["B", "A#", "A", "G#", "G", "F#", "F", "E", "D#", "D", "C#", "C"] %>
+
+<div id="roll">
+  <div class="beat-lines"></div>
+  <div class="bar-lines"></div>
+  <div class="measure-lines"></div>
+  <div id="quarters">
+    <div class="square"
+      style="grid-column-start: 120;
+      grid-column-end: 121;">
+    </div>
+  </div>
+  <div id="halves">
+    <div class="square"
+      style="grid-column-start: 12;
+      grid-column-end: 13;">
+    </div>
+  </div>
+  <div id="ones" class="" style="">
+    <div class="square"
+      style="grid-column-start: 3;
+      grid-column-end: 4;">
+    </div>
+  </div>
+  <div id="rows">
+    <%= for _note <- (1..row_count) do %>
+      <div class="line"></div>
+    <% end %>
+  </div>
+  <div id="overlay">
+    <div class="note midi-127" data-midi-number="127">G9</div>
+    <div class="note midi-126" data-midi-number="126">F#9</div>
+    <div class="note midi-125" data-midi-number="125">F9</div>
+    <div class="note midi-124" data-midi-number="124">E9</div>
+    <div class="note midi-123" data-midi-number="123">D#9</div>
+    <div class="note midi-122" data-midi-number="122">D9</div>
+    <div class="note midi-121" data-midi-number="121">C#9</div>
+    <div class="note midi-120" data-midi-number="120">C9</div>
+    <div class="note midi-119" data-midi-number="119">B8</div>
+    <div class="note midi-118" data-midi-number="118">A#8</div>
+    <div class="note midi-117" data-midi-number="117">A8</div>
+    <div class="note midi-116" data-midi-number="116">G#8</div>
+    <div class="note midi-115" data-midi-number="115">G8</div>
+    <div class="note midi-114" data-midi-number="114">F#8</div>
+    <div class="note midi-113" data-midi-number="113">F8</div>
+    <div class="note midi-112" data-midi-number="112">E8</div>
+    <div class="note midi-111" data-midi-number="111">D#8</div>
+    <div class="note midi-110" data-midi-number="110">D8</div>
+    <div class="note midi-109" data-midi-number="109">C#8</div>
+    <div class="note midi-108" data-midi-number="108">C8</div>
+    <div class="note midi-107" data-midi-number="107">B7</div>
+    <div class="note midi-106" data-midi-number="106">A#7</div>
+    <div class="note midi-105" data-midi-number="105">A7</div>
+    <div class="note midi-104" data-midi-number="104">G#7</div>
+    <div class="note midi-103" data-midi-number="103">G7</div>
+    <div class="note midi-102" data-midi-number="102">F#7</div>
+    <div class="note midi-101" data-midi-number="101">F7</div>
+    <div class="note midi-100" data-midi-number="100">E7</div>
+    <div class="note midi-99" data-midi-number="99">D#7</div>
+    <div class="note midi-98" data-midi-number="98">D7</div>
+    <div class="note midi-97" data-midi-number="97">C#7</div>
+    <div class="note midi-96" data-midi-number="96">C7</div>
+    <div class="note midi-95" data-midi-number="95">B6</div>
+    <div class="note midi-94" data-midi-number="94">A#6</div>
+    <div class="note midi-93" data-midi-number="93">A6</div>
+    <div class="note midi-92" data-midi-number="92">G#6</div>
+    <div class="note midi-91" data-midi-number="91">G6</div>
+    <div class="note midi-90" data-midi-number="90">F#6</div>
+    <div class="note midi-89" data-midi-number="89">F6</div>
+    <div class="note midi-88" data-midi-number="88">E6</div>
+    <div class="note midi-87" data-midi-number="87">D#6</div>
+    <div class="note midi-86" data-midi-number="86">D6</div>
+    <div class="note midi-85" data-midi-number="85">C#6</div>
+    <div class="note midi-84" data-midi-number="84">C6</div>
+    <div class="note midi-83" data-midi-number="83">B5</div>
+    <div class="note midi-82" data-midi-number="82">A#5</div>
+    <div class="note midi-81" data-midi-number="81">A5</div>
+    <div class="note midi-80" data-midi-number="80">G#5</div>
+    <div class="note midi-79" data-midi-number="79">G5</div>
+    <div class="note midi-78" data-midi-number="78">F#5</div>
+    <div class="note midi-77" data-midi-number="77">F5</div>
+    <div class="note midi-76" data-midi-number="76">E5</div>
+    <div class="note midi-75" data-midi-number="75">D#5</div>
+    <div class="note midi-74" data-midi-number="74">D5</div>
+    <div class="note midi-73" data-midi-number="73">C#5</div>
+    <div class="note midi-72" data-midi-number="72">C5</div>
+    <div class="note midi-71" data-midi-number="71">B4</div>
+    <div class="note midi-70" data-midi-number="70">A#4</div>
+    <div class="note midi-69" data-midi-number="69">A4</div>
+    <div class="note midi-68" data-midi-number="68">G#4</div>
+    <div class="note midi-67" data-midi-number="67">G4</div>
+    <div class="note midi-66" data-midi-number="66">F#4</div>
+    <div class="note midi-65" data-midi-number="65">F4</div>
+    <div class="note midi-64" data-midi-number="64">E4</div>
+    <div class="note midi-63" data-midi-number="63">D#4</div>
+    <div class="note midi-62" data-midi-number="62">D4</div>
+    <div class="note midi-61" data-midi-number="61">C#4</div>
+    <div class="note midi-60" data-midi-number="60">C4</div>
+    <div class="note midi-59" data-midi-number="59">B3</div>
+    <div class="note midi-58" data-midi-number="58">A#3</div>
+    <div class="note midi-57" data-midi-number="57">A3</div>
+    <div class="note midi-56" data-midi-number="56">G#3</div>
+    <div class="note midi-55" data-midi-number="55">G3</div>
+    <div class="note midi-54" data-midi-number="54">F#3</div>
+    <div class="note midi-53" data-midi-number="53">F3</div>
+    <div class="note midi-52" data-midi-number="52">E3</div>
+    <div class="note midi-51" data-midi-number="51">D#3</div>
+    <div class="note midi-50" data-midi-number="50">D3</div>
+    <div class="note midi-49" data-midi-number="49">C#3</div>
+    <div class="note midi-48" data-midi-number="48">C3</div>
+    <div class="note midi-47" data-midi-number="47">B2</div>
+    <div class="note midi-46" data-midi-number="46">A#2</div>
+    <div class="note midi-45" data-midi-number="45">A2</div>
+    <div class="note midi-44" data-midi-number="44">G#2</div>
+    <div class="note midi-43" data-midi-number="43">G2</div>
+    <div class="note midi-42" data-midi-number="42">F#2</div>
+    <div class="note midi-41" data-midi-number="41">F2</div>
+    <div class="note midi-40" data-midi-number="40">E2</div>
+    <div class="note midi-39" data-midi-number="39">D#2</div>
+    <div class="note midi-38" data-midi-number="38">D2</div>
+    <div class="note midi-37" data-midi-number="37">C#2</div>
+    <div class="note midi-36" data-midi-number="36">C2</div>
+    <div class="note midi-35" data-midi-number="35">B1</div>
+    <div class="note midi-34" data-midi-number="34">A#1</div>
+    <div class="note midi-33" data-midi-number="33">A1</div>
+    <div class="note midi-32" data-midi-number="32">G#1</div>
+    <div class="note midi-31" data-midi-number="31">G1</div>
+    <div class="note midi-30" data-midi-number="30">F#1</div>
+    <div class="note midi-29" data-midi-number="29">F1</div>
+    <div class="note midi-28" data-midi-number="28">E1</div>
+    <div class="note midi-27" data-midi-number="27">D#1</div>
+    <div class="note midi-26" data-midi-number="26">D1</div>
+    <div class="note midi-25" data-midi-number="25">C#1</div>
+    <div class="note midi-24" data-midi-number="24">C1</div>
+    <div class="note midi-23" data-midi-number="23">B0</div>
+    <div class="note midi-22" data-midi-number="22">A#0</div>
+    <div class="note midi-21" data-midi-number="21">A0</div>
+    <div class="note midi-20" data-midi-number="20">G#0</div>
+    <div class="note midi-19" data-midi-number="19">G0</div>
+    <div class="note midi-18" data-midi-number="18">F#0</div>
+    <div class="note midi-17" data-midi-number="17">F0</div>
+    <div class="note midi-16" data-midi-number="16">E0</div>
+    <div class="note midi-15" data-midi-number="15">D#0</div>
+    <div class="note midi-14" data-midi-number="14">D0</div>
+    <div class="note midi-13" data-midi-number="13">C#0</div>
+    <div class="note midi-12" data-midi-number="12">C0</div>
+    <div class="note midi-11" data-midi-number="11">B-1</div>
+    <div class="note midi-10" data-midi-number="10">A#-1</div>
+    <div class="note midi-9" data-midi-number="9">A-1</div>
+    <div class="note midi-8" data-midi-number="8">G#-1</div>
+    <div class="note midi-7" data-midi-number="7">G-1</div>
+    <div class="note midi-6" data-midi-number="6">F#-1</div>
+    <div class="note midi-5" data-midi-number="5">F-1</div>
+    <div class="note midi-4" data-midi-number="4">E-1</div>
+    <div class="note midi-3" data-midi-number="3">D#-1</div>
+    <div class="note midi-2" data-midi-number="2">D-1</div>
+    <div class="note midi-1" data-midi-number="1">C#-1</div>
+    <div class="note midi-0" data-midi-number="0">C-1</div>
+  </div>
+</div>

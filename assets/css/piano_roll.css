@@ -1,0 +1,215 @@
+#roll {
+  position: relative;
+  width: 70vw;
+  height: 63vw;
+  min-width: 300px;
+  min-height: 300px;
+  overflow: hidden;
+  border: 12px solid #6D5720;
+  border-radius: 12px;
+}
+#rows .line {
+  border-bottom: 0.1px solid #ddd;
+}
+#halves, #quarters, #ones, #overlay {
+  display: grid;
+  grid-template-columns: 3% repeat(97, 1%);
+  grid-template-rows: repeat(100, 0.78125%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#halves {
+  grid-template-columns: 3% repeat(194, 0.5%);
+}
+#quarters {
+  grid-template-columns: 3% repeat(388, 0.25%);
+}
+#ones, #overlay {
+  grid-template-columns: 3% repeat(97, 1%);
+  grid-template-rows: repeat(128, 0.78125%);
+}
+#rows {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(128, 0.78125%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.beat-lines,.bar-lines,.measure-lines{
+  position:absolute;
+  height:100%;
+  top:0;
+  left:3%;
+  width:97%;
+}
+.beat-lines{
+  background-size:0.7vw;
+  background-image:-webkit-linear-gradient(left,#f5f5f5 1px,transparent 0);
+  background-image:linear-gradient(90deg,#f5f5f5 1px,transparent 0);
+}
+.bar-lines{
+  background-size:2.8vw;
+  background-image:-webkit-linear-gradient(left,#ccc 1px,transparent 0);
+  background-image:linear-gradient(90deg,#ccc 1px,transparent 0);
+}
+.measure-lines{
+  background-size:11.2vw;
+  background-image:-webkit-linear-gradient(left,#333 1px,transparent 0);
+  background-image:linear-gradient(90deg,#aaa 1px,transparent 0);
+}
+.square {
+  z-index: 100;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  background:#888;
+  border:1px solid #2f2f2f
+}
+
+.note {
+  text-align:left;
+  font-size:3px
+}
+.note:nth-child(12n+2),
+.note:nth-child(12n+5),
+.note:nth-child(12n+7),
+.note:nth-child(12n+10),
+.note:nth-child(12n) {
+  background:#222;
+  color:#f5f5f5
+}
+
+.midi-127 { grid-row-start: 1   }
+.midi-126 { grid-row-start: 2   }
+.midi-125 { grid-row-start: 3   }
+.midi-124 { grid-row-start: 4   }
+.midi-123 { grid-row-start: 5   }
+.midi-122 { grid-row-start: 6   }
+.midi-121 { grid-row-start: 7   }
+.midi-120 { grid-row-start: 8   }
+.midi-119 { grid-row-start: 9   }
+.midi-118 { grid-row-start: 10  }
+.midi-117 { grid-row-start: 11  }
+.midi-116 { grid-row-start: 12  }
+.midi-115 { grid-row-start: 13  }
+.midi-114 { grid-row-start: 14  }
+.midi-113 { grid-row-start: 15  }
+.midi-112 { grid-row-start: 16  }
+.midi-111 { grid-row-start: 17  }
+.midi-110 { grid-row-start: 18  }
+.midi-109 { grid-row-start: 19  }
+.midi-108 { grid-row-start: 20  }
+.midi-107 { grid-row-start: 21  }
+.midi-106 { grid-row-start: 22  }
+.midi-105 { grid-row-start: 23  }
+.midi-104 { grid-row-start: 24  }
+.midi-103 { grid-row-start: 25  }
+.midi-102 { grid-row-start: 26  }
+.midi-101 { grid-row-start: 27  }
+.midi-100 { grid-row-start: 28  }
+.midi-99  { grid-row-start: 29  }
+.midi-98  { grid-row-start: 30  }
+.midi-97  { grid-row-start: 31  }
+.midi-96  { grid-row-start: 32  }
+.midi-95  { grid-row-start: 33  }
+.midi-94  { grid-row-start: 34  }
+.midi-93  { grid-row-start: 35  }
+.midi-92  { grid-row-start: 36  }
+.midi-91  { grid-row-start: 37  }
+.midi-90  { grid-row-start: 38  }
+.midi-89  { grid-row-start: 39  }
+.midi-88  { grid-row-start: 40  }
+.midi-87  { grid-row-start: 41  }
+.midi-86  { grid-row-start: 42  }
+.midi-85  { grid-row-start: 43  }
+.midi-84  { grid-row-start: 44  }
+.midi-83  { grid-row-start: 45  }
+.midi-82  { grid-row-start: 46  }
+.midi-81  { grid-row-start: 47  }
+.midi-80  { grid-row-start: 48  }
+.midi-79  { grid-row-start: 49  }
+.midi-78  { grid-row-start: 50  }
+.midi-77  { grid-row-start: 51  }
+.midi-76  { grid-row-start: 52  }
+.midi-75  { grid-row-start: 53  }
+.midi-74  { grid-row-start: 54  }
+.midi-73  { grid-row-start: 55  }
+.midi-72  { grid-row-start: 56  }
+.midi-71  { grid-row-start: 57  }
+.midi-70  { grid-row-start: 58  }
+.midi-69  { grid-row-start: 59  }
+.midi-68  { grid-row-start: 60  }
+.midi-67  { grid-row-start: 61  }
+.midi-66  { grid-row-start: 62  }
+.midi-65  { grid-row-start: 63  }
+.midi-64  { grid-row-start: 64  }
+.midi-63  { grid-row-start: 65  }
+.midi-62  { grid-row-start: 66  }
+.midi-61  { grid-row-start: 67  }
+.midi-60  { grid-row-start: 68  }
+.midi-59  { grid-row-start: 69  }
+.midi-58  { grid-row-start: 70  }
+.midi-57  { grid-row-start: 71  }
+.midi-56  { grid-row-start: 72  }
+.midi-55  { grid-row-start: 73  }
+.midi-54  { grid-row-start: 74  }
+.midi-53  { grid-row-start: 75  }
+.midi-52  { grid-row-start: 76  }
+.midi-51  { grid-row-start: 77  }
+.midi-50  { grid-row-start: 78  }
+.midi-49  { grid-row-start: 79  }
+.midi-48  { grid-row-start: 80  }
+.midi-47  { grid-row-start: 81  }
+.midi-46  { grid-row-start: 82  }
+.midi-45  { grid-row-start: 83  }
+.midi-44  { grid-row-start: 84  }
+.midi-43  { grid-row-start: 85  }
+.midi-42  { grid-row-start: 86  }
+.midi-41  { grid-row-start: 87  }
+.midi-40  { grid-row-start: 88  }
+.midi-39  { grid-row-start: 89  }
+.midi-38  { grid-row-start: 90  }
+.midi-37  { grid-row-start: 91  }
+.midi-36  { grid-row-start: 92  }
+.midi-35  { grid-row-start: 93  }
+.midi-34  { grid-row-start: 94  }
+.midi-33  { grid-row-start: 95  }
+.midi-32  { grid-row-start: 96  }
+.midi-31  { grid-row-start: 97  }
+.midi-30  { grid-row-start: 98  }
+.midi-29  { grid-row-start: 99  }
+.midi-28  { grid-row-start: 100 }
+.midi-27  { grid-row-start: 101 }
+.midi-26  { grid-row-start: 102 }
+.midi-25  { grid-row-start: 103 }
+.midi-24  { grid-row-start: 104 }
+.midi-23  { grid-row-start: 105 }
+.midi-22  { grid-row-start: 106 }
+.midi-21  { grid-row-start: 107 }
+.midi-20  { grid-row-start: 108 }
+.midi-19  { grid-row-start: 109 }
+.midi-18  { grid-row-start: 110 }
+.midi-17  { grid-row-start: 111 }
+.midi-16  { grid-row-start: 112 }
+.midi-15  { grid-row-start: 113 }
+.midi-14  { grid-row-start: 114 }
+.midi-13  { grid-row-start: 115 }
+.midi-12  { grid-row-start: 116 }
+.midi-11  { grid-row-start: 117 }
+.midi-10  { grid-row-start: 118 }
+.midi-9   { grid-row-start: 119 }
+.midi-8   { grid-row-start: 120 }
+.midi-7   { grid-row-start: 121 }
+.midi-6   { grid-row-start: 122 }
+.midi-5   { grid-row-start: 123 }
+.midi-4   { grid-row-start: 124 }
+.midi-3   { grid-row-start: 125 }
+.midi-2   { grid-row-start: 126 }
+.midi-1   { grid-row-start: 127 }
+.midi-0   { grid-row-start: 128 }

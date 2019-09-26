@@ -1,4 +1,16 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
+@import "./normalize.css";
+@import "./skeleton.css";
+
+body {
+  margin-top: 4rem;
+}
+h1 {
+  font-family: 'Orbitron', sans-serif;
+}
+body, p, div {
+  font-family: 'Inter', sans-serif;
+}
+@import "./piano_roll.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
