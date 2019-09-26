@@ -47,7 +47,6 @@ defmodule LiveViewDemoWeb.MidiLive do
         } = event,
         %{assigns: assigns} = socket
       ) do
-    IO.inspect(event)
     message_code = status &&& 0xF0
     channel = (status &&& 0x0F) + 1
 

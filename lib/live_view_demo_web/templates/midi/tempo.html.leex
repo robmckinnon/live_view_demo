@@ -1,0 +1,6 @@
+<div class="row">
+  BPM: <%= @state.bpm %>
+  <button phx-click="dec_tempo" class="tempo">-</button>
+  <button phx-click="inc_tempo" class="tempo">+</button>
+  ms/beat: <%= @state.ms_per_beat %>
+</div>
