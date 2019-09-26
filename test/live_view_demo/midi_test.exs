@@ -13,6 +13,7 @@ defmodule LiveViewDemo.MidiTest do
       assert state.user_gesture == false
       assert state.inputs == %{}
       assert state.outputs == %{}
+      assert state.bpm == 120
     end
 
     @port %{
@@ -37,6 +38,26 @@ defmodule LiveViewDemo.MidiTest do
       output = @port
       state = Midi.midi_output(output, state)
       assert %Port{} = state.outputs |> Map.get("id")
+    end
+
+    test "increments tempo" do
+      state = struct(State)
+      state = Midi.inc_tempo(state)
+      assert state.bpm == 121
+
+      state = %{state | bpm: 240}
+      state = Midi.inc_tempo(state)
+      assert state.bpm == 240
+    end
+
+    test "decrements tempo" do
+      state = struct(State)
+      state = Midi.dec_tempo(state)
+      assert state.bpm == 119
+
+      state = %{state | bpm: 0}
+      state = Midi.dec_tempo(state)
+      assert state.bpm == 0
     end
 
     test "handle_message adds new note on" do

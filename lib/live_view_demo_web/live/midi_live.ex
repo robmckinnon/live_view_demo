@@ -28,6 +28,16 @@ defmodule LiveViewDemoWeb.MidiLive do
     {:noreply, assign(socket, state: new_state)}
   end
 
+  def handle_event("inc_tempo", _, %{assigns: assigns} = socket) do
+    new_state = Midi.inc_tempo(assigns.state)
+    {:noreply, assign(socket, state: new_state)}
+  end
+
+  def handle_event("dec_tempo", _, %{assigns: assigns} = socket) do
+    new_state = Midi.dec_tempo(assigns.state)
+    {:noreply, assign(socket, state: new_state)}
+  end
+
   def handle_event(
         "m",
         %{
