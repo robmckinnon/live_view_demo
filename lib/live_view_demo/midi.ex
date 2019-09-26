@@ -94,6 +94,8 @@ defmodule LiveViewDemo.Midi do
   @note_off 128
   # 1011nnnn
   @control_change 176
+  # 1100nnnn
+  @program_change 192
 
   def handle_message(@note_on, note, 0, channel, port_id, time, state) do
     handle_message(@note_off, note, 0, channel, port_id, time, state)
@@ -110,6 +112,17 @@ defmodule LiveViewDemo.Midi do
       updated = note_off(time, note, state.channels[channel])
       put_in(state.channels[channel], updated)
     end
+  end
+
+  def handle_message(@program_change, number, channel, _port_id, time, state) do
+    IO.puts([
+      "PC ",
+      Integer.to_string(number),
+      " ",
+      Integer.to_string(channel)
+    ])
+
+    state
   end
 
   def handle_message(@control_change, key, value, channel, _port_id, time, state) do

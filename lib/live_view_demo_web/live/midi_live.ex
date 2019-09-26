@@ -55,4 +55,21 @@ defmodule LiveViewDemoWeb.MidiLive do
 
     {:noreply, assign(socket, state: new_state)}
   end
+
+  def handle_event(
+        "m",
+        %{
+          "d" => %{"0" => status, "1" => key},
+          "i" => port_id,
+          "t" => time
+        } = event,
+        %{assigns: assigns} = socket
+      ) do
+    message_code = status &&& 0xF0
+    channel = (status &&& 0x0F) + 1
+
+    new_state = Midi.handle_message(message_code, key, channel, port_id, time, assigns.state)
+
+    {:noreply, assign(socket, state: new_state)}
+  end
 end
