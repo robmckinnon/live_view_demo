@@ -81,11 +81,13 @@ defmodule LiveViewDemo.Midi do
   end
 
   def inc_tempo(state) do
-    put_in(state.bpm, min(240, state.bpm + 1))
+    state = put_in(state.bpm, min(240, state.bpm + 1))
+    put_in(state.ms_per_beat, 60000 / state.bpm)
   end
 
   def dec_tempo(state) do
-    put_in(state.bpm, max(0, state.bpm - 1))
+    state = put_in(state.bpm, max(1, state.bpm - 1))
+    put_in(state.ms_per_beat, 60000 / state.bpm)
   end
 
   # 1001nnnn

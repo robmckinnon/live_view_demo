@@ -14,6 +14,7 @@ defmodule LiveViewDemo.MidiTest do
       assert state.inputs == %{}
       assert state.outputs == %{}
       assert state.bpm == 120
+      assert state.ms_per_beat == 500
     end
 
     @port %{
@@ -48,6 +49,7 @@ defmodule LiveViewDemo.MidiTest do
       state = %{state | bpm: 240}
       state = Midi.inc_tempo(state)
       assert state.bpm == 240
+      assert state.ms_per_beat == 250
     end
 
     test "decrements tempo" do
@@ -55,9 +57,9 @@ defmodule LiveViewDemo.MidiTest do
       state = Midi.dec_tempo(state)
       assert state.bpm == 119
 
-      state = %{state | bpm: 0}
+      state = %{state | bpm: 1}
       state = Midi.dec_tempo(state)
-      assert state.bpm == 0
+      assert state.bpm == 1
     end
 
     test "handle_message adds new note on" do
