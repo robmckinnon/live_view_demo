@@ -15,6 +15,7 @@ defmodule LiveViewDemo.MidiTest do
       assert state.outputs == %{}
       assert state.bpm == 120
       assert state.ms_per_beat == 500
+      assert state.initial_time == nil
     end
 
     @port %{
@@ -74,6 +75,8 @@ defmodule LiveViewDemo.MidiTest do
                  events: [{time, %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}],
                  notes_on: %{59 => %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}
                }
+
+      assert state.initial_time == time
     end
 
     test "handle_message adds note off" do
@@ -93,6 +96,8 @@ defmodule LiveViewDemo.MidiTest do
                  ],
                  notes_on: %{}
                }
+
+      assert state.initial_time == time
     end
 
     test "handle_message adds control change" do
@@ -109,6 +114,8 @@ defmodule LiveViewDemo.MidiTest do
                  ],
                  notes_on: %{}
                }
+
+      assert state.initial_time == time
     end
   end
 

@@ -8,5 +8,6 @@ defmodule LiveViewDemo.Midi.State do
             outputs: %{},
             user_gesture: false,
             bpm: 120,
-            ms_per_beat: 500
+            ms_per_beat: 500,
+            initial_time: nil
 end

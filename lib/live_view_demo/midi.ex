@@ -72,7 +72,12 @@ defmodule LiveViewDemo.Midi do
     put_in(channel_state.events, [{time, {key, value}} | events])
   end
 
-  def init_state(channel, state) do
+  def init_time(%{initial_time: nil} = state, time), do: %{state | initial_time: time}
+  def init_time(state, _time), do: state
+
+  def init_state(channel, state, time) do
+    state = init_time(state, time)
+
     if state.channels[channel] == nil do
       put_in(state.channels[channel], %{events: [], notes_on: %{}})
     else
@@ -104,7 +109,7 @@ defmodule LiveViewDemo.Midi do
   end
 
   def handle_message(@note_on, note, velocity, channel, _port_id, time, state) do
-    state = init_state(channel, state)
+    state = init_state(channel, state, time)
     updated = note_on(time, note, velocity, state.channels[channel])
     put_in(state.channels[channel], updated)
   end
@@ -116,7 +121,14 @@ defmodule LiveViewDemo.Midi do
     end
   end
 
-  def handle_message(@program_change, number, channel, _port_id, time, state) do
+  def handle_message(@control_change, key, value, channel, _port_id, time, state) do
+    state = init_state(channel, state, time)
+
+    updated = control_change(time, key, value, state.channels[channel])
+    put_in(state.channels[channel], updated)
+  end
+
+  def handle_message(@program_change, number, channel, _port_id, _time, state) do
     IO.puts([
       "PC ",
       Integer.to_string(number),
@@ -125,11 +137,5 @@ defmodule LiveViewDemo.Midi do
     ])
 
     state
-  end
-
-  def handle_message(@control_change, key, value, channel, _port_id, time, state) do
-    state = init_state(channel, state)
-    updated = control_change(time, key, value, state.channels[channel])
-    put_in(state.channels[channel], updated)
   end
 end
