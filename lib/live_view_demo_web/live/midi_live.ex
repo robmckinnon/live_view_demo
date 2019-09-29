@@ -44,7 +44,7 @@ defmodule LiveViewDemoWeb.MidiLive do
           "d" => %{"0" => status, "1" => key, "2" => value},
           "i" => port_id,
           "t" => time
-        } = event,
+        },
         %{assigns: assigns} = socket
       ) do
     message_code = status &&& 0xF0
@@ -63,7 +63,7 @@ defmodule LiveViewDemoWeb.MidiLive do
           "d" => %{"0" => status, "1" => key},
           "i" => port_id,
           "t" => time
-        } = event,
+        },
         %{assigns: assigns} = socket
       ) do
     message_code = status &&& 0xF0
