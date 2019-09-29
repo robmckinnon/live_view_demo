@@ -49,6 +49,7 @@ defmodule LiveViewDemoWeb.MidiLive do
       ) do
     message_code = status &&& 0xF0
     channel = (status &&& 0x0F) + 1
+    IO.inspect(time)
 
     new_state =
       Midi.handle_message(message_code, key, value, channel, port_id, time, assigns.state)

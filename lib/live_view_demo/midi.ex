@@ -44,32 +44,66 @@ defmodule LiveViewDemo.Midi do
     %{state | outputs: outputs}
   end
 
+  @nil_duration nil
+  @nil_beats nil
+
   @doc """
   Add note to events and notes.
   """
-  def note_on(time, number, velocity, %{events: events, notes_on: notes_on})
+  def note_on(time, initial_time, ms_per_beat, number, velocity, %{
+        events: events,
+        notes_on: notes_on
+      })
       when is_integer(number) and is_integer(velocity) and
              is_map(notes_on) and is_list(events) do
     note = %Note{number: number, velocity: velocity}
     notes_on = notes_on |> Map.put(number, note)
-    %{events: [{time, note} | events], notes_on: notes_on}
+
+    %{
+      events: [{time, time - initial_time, @nil_duration, @nil_beats, note} | events],
+      notes_on: notes_on
+    }
+  end
+
+  defp note_duration(_number, _end_time, _ms_per_beat, []) do
+    []
+  end
+
+  defp note_duration(number, end_time, ms_per_beat, [
+         {start_time, rel_time, @nil_duration, @nil_beats, %Note{number: number} = note} | events
+       ]) do
+    duration = end_time - start_time
+    beats = duration / ms_per_beat
+    [{start_time, rel_time, duration, duration / ms_per_beat, note} | events]
+  end
+
+  defp note_duration(number, end_time, ms_per_beat, [
+         {start_time, rel_time, @nil_duration, @nil_beats, %Note{} = note} | events
+       ]) do
+    events = note_duration(number, end_time, ms_per_beat, events)
+    [{start_time, rel_time, @nil_duration, @nil_beats, note} | events]
   end
 
   @doc """
   Add note off to events and remove from notes.
   """
-  def note_off(time, number, %{events: events, notes_on: notes_on})
+  def note_off(time, initial_time, ms_per_beat, number, %{events: events, notes_on: notes_on})
       when is_integer(number) and is_map(notes_on) and is_list(events) do
     note = %Note{number: number, velocity: 0}
     notes_on = notes_on |> Map.delete(number)
-    %{events: [{time, note} | events], notes_on: notes_on}
+    events = note_duration(number, time, ms_per_beat, events)
+
+    %{
+      events: [{time, time - initial_time, @nil_duration, @nil_beats, note} | events],
+      notes_on: notes_on
+    }
   end
 
   @doc """
   Add control change to events.
   """
-  def control_change(time, key, value, %{events: events} = channel_state) do
-    put_in(channel_state.events, [{time, {key, value}} | events])
+  def control_change(time, initial_time, key, value, %{events: events} = channel_state) do
+    put_in(channel_state.events, [{time, time - initial_time, {key, value}} | events])
   end
 
   def init_time(%{initial_time: nil} = state, time), do: %{state | initial_time: time}
@@ -110,13 +144,25 @@ defmodule LiveViewDemo.Midi do
 
   def handle_message(@note_on, note, velocity, channel, _port_id, time, state) do
     state = init_state(channel, state, time)
-    updated = note_on(time, note, velocity, state.channels[channel])
+
+    updated =
+      note_on(
+        time,
+        state.initial_time,
+        state.ms_per_beat,
+        note,
+        velocity,
+        state.channels[channel]
+      )
+
     put_in(state.channels[channel], updated)
   end
 
   def handle_message(@note_off, note, 0, channel, _port_id, time, state) do
     if state.channels[channel] != nil do
-      updated = note_off(time, note, state.channels[channel])
+      updated =
+        note_off(time, state.initial_time, state.ms_per_beat, note, state.channels[channel])
+
       put_in(state.channels[channel], updated)
     end
   end
@@ -124,7 +170,16 @@ defmodule LiveViewDemo.Midi do
   def handle_message(@control_change, key, value, channel, _port_id, time, state) do
     state = init_state(channel, state, time)
 
-    updated = control_change(time, key, value, state.channels[channel])
+    IO.puts([
+      "CC ",
+      Integer.to_string(key),
+      " ",
+      Integer.to_string(value),
+      " ",
+      Integer.to_string(channel)
+    ])
+
+    updated = control_change(time, state.initial_time, key, value, state.channels[channel])
     put_in(state.channels[channel], updated)
   end
 

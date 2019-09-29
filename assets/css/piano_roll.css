@@ -11,7 +11,7 @@
 #rows .line {
   border-bottom: 0.1px solid #ddd;
 }
-#halves, #quarters, #ones, #overlay {
+#ones, #halves, #quarters, #overlay {
   display: grid;
   grid-template-columns: 3% repeat(97, 1%);
   grid-template-rows: repeat(100, 0.78125%);
