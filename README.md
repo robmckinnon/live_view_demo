@@ -2,7 +2,7 @@
 
 This is my entry in [Phoenix Phrenzy](https://phoenixphrenzy.com), showing off what [Phoenix](https://phoenixframework.org/) and [LiveView](https://github.com/phoenixframework/phoenix_live_view) can do.
 
-![MIDI LiveView preview](assets/static/images/preview.gif "MIDI LiveView")
+![MIDI LiveView preview](assets/static/images/preview.png "MIDI LiveView")
 
 See it running at <a href="https://midiliveview.herokuapp.com/">https://midiliveview.herokuapp.com/</a>.
 
