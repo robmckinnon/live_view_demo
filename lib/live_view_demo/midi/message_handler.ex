@@ -60,8 +60,6 @@ defmodule LiveViewDemo.Midi.MessageHandler do
     note = %Note{number: number, velocity: 0}
     notes_on = notes_on |> Map.delete(number)
     {events, duration} = set_note_duration(number, time, ms_per_beat, events)
-    IO.inspect("duration")
-    IO.inspect(duration)
     rel_time = time - initial_time
 
     start_end_beats =

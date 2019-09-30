@@ -1,7 +1,9 @@
 <%= if @state.user_gesture == false do %>
   <%= render("connect_button.html") %>
 <% else %>
-  <%= render("tempo.html", state: @state) %>
-  <%= render("ports.html", state: @state) %>
+  <div class="row">
+    <%= render("tempo.html", state: @state) %>
+    <%= render("ports.html", state: @state) %>
+  </div>
   <%= render("piano_roll.html", state: @state) %>
 <% end %>

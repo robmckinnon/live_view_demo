@@ -1,6 +1,7 @@
-<div class="row">
-  BPM: <%= @state.bpm %>
+<div class="two columns">
+  <h6>BPM</h6>
+  <span><%= @state.bpm %></span>
   <button phx-click="dec_tempo" class="tempo">-</button>
   <button phx-click="inc_tempo" class="tempo">+</button>
-  ms/beat: <%= @state.ms_per_beat %>
+  <p class="smaller">ms/beat: <%= round(@state.ms_per_beat) %></p>
 </div>

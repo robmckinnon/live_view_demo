@@ -6,11 +6,21 @@
 body {
   margin-top: 4rem;
 }
-h1 {
+h1, h6 {
   font-family: 'Orbitron', sans-serif;
 }
-body, p, div {
+/* body, p, div {
   font-family: 'Inter', sans-serif;
+} */
+.smaller {
+  font-size: 80%;
+}
+abbr[title] {
+  border-bottom: 0px;
+  text-decoration: underline dotted lightgrey;
+}
+h6 {
+  margin-bottom: 0.25rem;
 }
 @import "./piano_roll.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";

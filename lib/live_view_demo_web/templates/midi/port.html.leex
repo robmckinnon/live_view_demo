@@ -1,6 +1,7 @@
-<div>
-  <%= @port.manufacturer <> " " %>
-  <%= @port.name %>
-  (<%= @port.id %>):
+<li>
+  <abbr
+    title="<%= @port.manufacturer %> <%= @port.name %> (<%= @port.id %>)">
+  <%= @port.name %></abbr>:
   <%= @port.state %>
-</div>
+
+</li>
