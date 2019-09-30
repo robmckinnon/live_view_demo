@@ -10,6 +10,19 @@
       style="grid-column-start: 120;
       grid-column-end: 121;">
     </div>
+    <div class="square"
+      style="grid-column-start: 140;
+      grid-column-end: 142;">
+    </div>
+    <%= for {channel, state} <- @state.channels do %>
+      <%= for [{note},{_, start},{_, finish}] <- state.grid do %>
+      <div class="square"
+        style="grid-column: <%= start + 2 %> / <%= finish + 2 %>;
+        grid-row: <%= 127 - note %> / <%= 127 - note + 1 %>;
+        ">
+      </div>
+      <% end %>
+    <% end %>
   </div>
   <div id="halves">
     <div class="square"

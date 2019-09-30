@@ -7,6 +7,12 @@ defmodule LiveViewDemo.Midi.MessageHandlerTest do
   describe "MessageHandler" do
     alias LiveViewDemo.Midi.Note
 
+    @blank_grid %{
+      ones: [],
+      halves: [],
+      quarters: []
+    }
+
     test "note_on adds note to events list and notes_on map" do
       ms_per_beat = 500
       number = 49
@@ -20,7 +26,8 @@ defmodule LiveViewDemo.Midi.MessageHandlerTest do
       state =
         MessageHandler.note_on(time, initial_time, ms_per_beat, number, velocity, %{
           events: [],
-          notes_on: %{}
+          notes_on: %{},
+          grid: @blank_grid
         })
 
       assert Enum.count(state.events) == 1
@@ -29,6 +36,8 @@ defmodule LiveViewDemo.Midi.MessageHandlerTest do
                {initial_time, rel_time, nil_duration, nil_beats,
                 %Note{number: number, velocity: velocity}}
              ]
+
+      assert state.grid == @blank_grid
 
       assert state.notes_on == %{number => %Note{number: number, velocity: velocity}}
     end
@@ -49,7 +58,8 @@ defmodule LiveViewDemo.Midi.MessageHandlerTest do
 
       state = %{
         events: [{initial_time, rel_time, nil_duration, nil_beats, note}],
-        notes_on: %{number => note}
+        notes_on: %{number => note},
+        grid: @blank_grid
       }
 
       state = MessageHandler.note_off(time2, initial_time, ms_per_beat, number, state)

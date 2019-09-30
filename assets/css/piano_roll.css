@@ -13,8 +13,7 @@
 }
 #ones, #halves, #quarters, #overlay {
   display: grid;
-  grid-template-columns: 3% repeat(97, 1%);
-  grid-template-rows: repeat(100, 0.78125%);
+  grid-template-rows: repeat(128, 0.78125%);
   position: absolute;
   top: 0;
   left: 0;
@@ -29,7 +28,6 @@
 }
 #ones, #overlay {
   grid-template-columns: 3% repeat(97, 1%);
-  grid-template-rows: repeat(128, 0.78125%);
 }
 #rows {
   display: grid;

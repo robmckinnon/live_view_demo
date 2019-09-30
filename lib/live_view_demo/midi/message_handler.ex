@@ -6,7 +6,7 @@ defmodule LiveViewDemo.Midi.MessageHandler do
   https://www.midi.org/specifications-old/item/table-1-summary-of-midi-message
   """
 
-  alias LiveViewDemo.Midi.Note
+  alias LiveViewDemo.Midi.{Note, Quantise}
 
   @nil_duration nil
   @nil_beats nil
@@ -16,6 +16,7 @@ defmodule LiveViewDemo.Midi.MessageHandler do
   """
   def note_on(time, initial_time, _ms_per_beat, number, velocity, %{
         events: events,
+        grid: grid,
         notes_on: notes_on
       })
       when is_integer(number) and is_integer(velocity) and
@@ -25,40 +26,56 @@ defmodule LiveViewDemo.Midi.MessageHandler do
 
     %{
       events: [{time, time - initial_time, @nil_duration, @nil_beats, note} | events],
+      grid: grid,
       notes_on: notes_on
     }
   end
 
-  defp note_duration(_number, _end_time, _ms_per_beat, []) do
-    []
+  defp set_note_duration(_number, _end_time, _ms_per_beat, []) do
+    {[], nil}
   end
 
-  defp note_duration(number, end_time, ms_per_beat, [
+  defp set_note_duration(number, end_time, ms_per_beat, [
          {start_time, rel_time, @nil_duration, @nil_beats, %Note{number: number} = note} | events
        ]) do
     duration = end_time - start_time
     beats = duration / ms_per_beat
-    [{start_time, rel_time, duration, beats, note} | events]
+    {[{start_time, rel_time, duration, beats, note} | events], duration}
   end
 
-  defp note_duration(number, end_time, ms_per_beat, [
-         {start_time, rel_time, @nil_duration, @nil_beats, %Note{} = note} | events
-       ]) do
-    events = note_duration(number, end_time, ms_per_beat, events)
-    [{start_time, rel_time, @nil_duration, @nil_beats, note} | events]
+  defp set_note_duration(number, end_time, ms_per_beat, [event | events]) do
+    {events, duration} = set_note_duration(number, end_time, ms_per_beat, events)
+    {[event | events], duration}
   end
 
   @doc """
   Add note off to events and remove from notes.
   """
-  def note_off(time, initial_time, ms_per_beat, number, %{events: events, notes_on: notes_on})
+  def note_off(time, initial_time, ms_per_beat, number, %{
+        events: events,
+        grid: grid,
+        notes_on: notes_on
+      })
       when is_integer(number) and is_map(notes_on) and is_list(events) do
     note = %Note{number: number, velocity: 0}
     notes_on = notes_on |> Map.delete(number)
-    events = note_duration(number, time, ms_per_beat, events)
+    {events, duration} = set_note_duration(number, time, ms_per_beat, events)
+    IO.inspect("duration")
+    IO.inspect(duration)
+    rel_time = time - initial_time
+
+    start_end_beats =
+      Quantise.start_end_beats(
+        round(rel_time - duration),
+        round(duration),
+        round(ms_per_beat / 4)
+      )
+
+    IO.inspect(start_end_beats)
 
     %{
-      events: [{time, time - initial_time, @nil_duration, @nil_beats, note} | events],
+      events: [{time, rel_time, @nil_duration, @nil_beats, note} | events],
+      grid: [[{number} | start_end_beats] | grid],
       notes_on: notes_on
     }
   end
@@ -73,11 +90,17 @@ defmodule LiveViewDemo.Midi.MessageHandler do
   def init_time(%{initial_time: nil} = state, time), do: %{state | initial_time: time}
   def init_time(state, _time), do: state
 
+  @initial_channel_state %{
+    events: [],
+    notes_on: %{},
+    grid: []
+  }
+
   def init_state(channel, state, time) do
     state = init_time(state, time)
 
     if state.channels[channel] == nil do
-      put_in(state.channels[channel], %{events: [], notes_on: %{}})
+      put_in(state.channels[channel], @initial_channel_state)
     else
       state
     end
@@ -117,7 +140,9 @@ defmodule LiveViewDemo.Midi.MessageHandler do
       updated =
         note_off(time, state.initial_time, state.ms_per_beat, note, state.channels[channel])
 
-      put_in(state.channels[channel], updated)
+      state = put_in(state.channels[channel], updated)
+      # IO.inspect(state.channels)
+      state
     end
   end
 

@@ -79,13 +79,14 @@ defmodule LiveViewDemo.MidiTest do
                    {time, rel_time, nil_duration, nil_beats,
                     %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}
                  ],
-                 notes_on: %{59 => %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}
+                 notes_on: %{59 => %LiveViewDemo.Midi.Note{number: 59, velocity: 127}},
+                 grid: []
                }
 
       assert state.initial_time == time
     end
 
-    test "handle_message adds note off" do
+    test "handle_message adds note off and grid entry" do
       state = struct(State)
       channel = 11
       port_id = "1649372164"
@@ -108,7 +109,8 @@ defmodule LiveViewDemo.MidiTest do
                    {time, rel_time, duration, beats,
                     %LiveViewDemo.Midi.Note{number: 59, velocity: 127}}
                  ],
-                 notes_on: %{}
+                 notes_on: %{},
+                 grid: [[{59}, {0, 0}, {10625, 85}]]
                }
 
       assert state.initial_time == time
@@ -127,7 +129,8 @@ defmodule LiveViewDemo.MidiTest do
                  events: [
                    {time, rel_time, {59, 127}}
                  ],
-                 notes_on: %{}
+                 notes_on: %{},
+                 grid: []
                }
 
       assert state.initial_time == time
