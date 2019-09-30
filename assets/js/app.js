@@ -23,7 +23,9 @@ Hooks.ConnectMidi = {
   mounted() {
     if (!navigator.requestMIDIAccess) {
       this.el.disabled = true
-      alert("This browser does not support Web MIDI. Try site in Firefox or Chrome browser.")
+      this.el.innerHTML =
+        "This browser <a href='https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess#Browser_compatibility'>does not support Web MIDI</a>. Try site in <a href='https://www.google.com/chrome/'>Chrome browser</a>."
+      alert("This browser does not support Web MIDI. Try site in Chrome browser.")
       return
     } else {
       const _this = this

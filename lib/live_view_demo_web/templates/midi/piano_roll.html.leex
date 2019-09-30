@@ -6,14 +6,6 @@
   <div class="bar-lines"></div>
   <div class="measure-lines"></div>
   <div id="quarters">
-    <div class="square"
-      style="grid-column-start: 120;
-      grid-column-end: 121;">
-    </div>
-    <div class="square"
-      style="grid-column-start: 140;
-      grid-column-end: 142;">
-    </div>
     <%= for {channel, state} <- @state.channels do %>
       <%= for [{note},{_, start},{_, finish}] <- state.grid do %>
       <div class="square"
@@ -23,18 +15,6 @@
       </div>
       <% end %>
     <% end %>
-  </div>
-  <div id="halves">
-    <div class="square"
-      style="grid-column-start: 12;
-      grid-column-end: 13;">
-    </div>
-  </div>
-  <div id="ones" class="" style="">
-    <div class="square"
-      style="grid-column-start: 3;
-      grid-column-end: 4;">
-    </div>
   </div>
   <div id="rows">
     <%= for _note <- (1..row_count) do %>
