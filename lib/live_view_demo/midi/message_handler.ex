@@ -69,7 +69,7 @@ defmodule LiveViewDemo.Midi.MessageHandler do
         round(ms_per_beat / 4)
       )
 
-    IO.inspect(start_end_beats)
+    # IO.inspect(start_end_beats)
 
     %{
       events: [{time, rel_time, @nil_duration, @nil_beats, note} | events],
@@ -133,7 +133,7 @@ defmodule LiveViewDemo.Midi.MessageHandler do
     put_in(state.channels[channel], updated)
   end
 
-  def handle_message(@note_off, note, 0, channel, _port_id, time, state) do
+  def handle_message(@note_off, note, _velocity, channel, _port_id, time, state) do
     if state.channels[channel] != nil do
       updated =
         note_off(time, state.initial_time, state.ms_per_beat, note, state.channels[channel])
@@ -147,14 +147,14 @@ defmodule LiveViewDemo.Midi.MessageHandler do
   def handle_message(@control_change, key, value, channel, _port_id, time, state) do
     state = init_state(channel, state, time)
 
-    IO.puts([
-      "CC ",
-      Integer.to_string(key),
-      " ",
-      Integer.to_string(value),
-      " ",
-      Integer.to_string(channel)
-    ])
+    # IO.puts([
+    #   "CC ",
+    #   Integer.to_string(key),
+    #   " ",
+    #   Integer.to_string(value),
+    #   " ",
+    #   Integer.to_string(channel)
+    # ])
 
     updated = control_change(time, state.initial_time, key, value, state.channels[channel])
     put_in(state.channels[channel], updated)

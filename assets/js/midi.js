@@ -1,4 +1,5 @@
 import util from "util"
+const WebAudioTinySynth = require('webaudio-tinysynth')
 
 const inputs = {}
 const outputs = {}
@@ -18,6 +19,21 @@ const ACTIVE_SENSING = 254 // 11111110
 const TIMING_CLOCK = 248 // 11111000
 
 const MESSAGE = "m"
+const synth = new WebAudioTinySynth()
+
+// 1001nnnn
+const note_on = 144
+// 1000nnnn
+const note_off = 128
+// 1011nnnn
+const control_change = 176
+// 1100nnnn
+const program_change = 192
+
+const STATUS_BYTE = 0xf0
+const CHANNEL_BYTE = 0x0f
+const NOTE_OFF = 0x80
+const NOTE_ON = 0x90
 
 const onMidiMessageHandler = (ctx) => {
   return function (msg) {
@@ -40,6 +56,13 @@ const onMidiMessageHandler = (ctx) => {
         t: msg.timeStamp,
         i: msg.target.id // msg.target is the midiInput port object
       })
+      const messageCode = msg.data[0] & STATUS_BYTE
+      const channel = msg.data[0] & CHANNEL_BYTE;
+      if (messageCode === NOTE_ON) {
+        synth.noteOn(channel, msg.data[1], msg.data[2])
+      } else if (messageCode === NOTE_OFF) {
+        synth.noteOff(channel, msg.data[1])
+      }
     }
   }
 }

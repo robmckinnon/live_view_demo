@@ -38,6 +38,9 @@ defmodule LiveViewDemoWeb.MidiLive do
     {:noreply, assign(socket, state: new_state)}
   end
 
+  @status_byte 0xF0
+  @channel_byte 0x0F
+
   def handle_event(
         "m",
         %{
@@ -47,9 +50,9 @@ defmodule LiveViewDemoWeb.MidiLive do
         },
         %{assigns: assigns} = socket
       ) do
-    message_code = status &&& 0xF0
-    channel = (status &&& 0x0F) + 1
-    IO.inspect(time)
+    message_code = status &&& @status_byte
+    channel = (status &&& @channel_byte) + 1
+    # IO.inspect(time)
 
     new_state =
       Midi.handle_message(message_code, key, value, channel, port_id, time, assigns.state)
@@ -66,8 +69,8 @@ defmodule LiveViewDemoWeb.MidiLive do
         },
         %{assigns: assigns} = socket
       ) do
-    message_code = status &&& 0xF0
-    channel = (status &&& 0x0F) + 1
+    message_code = status &&& @status_byte
+    channel = (status &&& @channel_byte) + 1
 
     new_state = Midi.handle_message(message_code, key, channel, port_id, time, assigns.state)
 
