@@ -2,6 +2,12 @@
 
 This is my entry in [Phoenix Phrenzy](https://phoenixphrenzy.com), showing off what [Phoenix](https://phoenixframework.org/) and [LiveView](https://github.com/phoenixframework/phoenix_live_view) can do.
 
+* Connect MIDI keyboards or controllers to your computer.
+* See music played on a piano roll generated via Phoenix LiveView talking to the Web MIDI API.
+* Listen to notes played by the browser using the Web Audio API.
+
+Screenshot of running app:
+
 ![MIDI LiveView preview](assets/static/images/preview.png "MIDI LiveView")
 
 See it running at <a href="https://midiliveview.herokuapp.com/">https://midiliveview.herokuapp.com/</a>.

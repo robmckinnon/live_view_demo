@@ -1,4 +1,4 @@
-<%= if @state.user_gesture == false do %>
+<%= if @state == nil || @state.user_gesture == false do %>
   <%= render("connect_button.html") %>
 <% else %>
   <div class="row">
